@@ -8,8 +8,8 @@ BACKUP_FILE="/etc/zypp/zypp.conf.bak.$(date +%F_%T)"
 cp $FILE $BACKUP_FILE
 echo "Backup do arquivo criado em $BACKUP_FILE"
 
-# Remover 'latest -1' da linha 'multiversion.kernels' e ajustar para 'latest,running'
-sed -i 's/multiversion.kernels = latest -1/multiversion.kernels = latest,running/' $FILE
+# Remover 'latest-1' da linha 'multiversion.kernels' e ajustar para 'latest,running'
+sed -i 's/latest-1,//' $FILE
 
 # Verificar se a modificação foi aplicada
 if grep -q "multiversion.kernels = latest,running" "$FILE"; then
