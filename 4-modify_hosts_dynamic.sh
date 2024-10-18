@@ -22,10 +22,10 @@ BACKUP_FILE="/etc/hosts.bak.$(date +%F_%T)"
 cp $HOSTS_FILE $BACKUP_FILE
 echo "Backup do /etc/hosts criado em $BACKUP_FILE"
 
-# Comentar todas as linhas do arquivo original
+# Comentar todas as linhas do arquivo original, sem alterar o backup
 sed -i '/^#/!s/^/#/' $HOSTS_FILE
 
-# Adicionar o IP e hostname no formato especificado
+# Adicionar o IP e hostname no formato especificado ao final do arquivo original
 echo "$IP_ADDRESS $FQDN $HOSTNAME" >> $HOSTS_FILE
 
 echo "Arquivo /etc/hosts modificado. Todas as linhas foram comentadas, e a linha '$IP_ADDRESS $FQDN $HOSTNAME' foi adicionada."
