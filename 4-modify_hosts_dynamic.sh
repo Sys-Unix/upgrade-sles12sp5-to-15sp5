@@ -6,8 +6,13 @@ HOSTNAME=$(hostname)
 # Capturar o FQDN (Fully Qualified Domain Name)
 FQDN=$(hostname -f)
 
-# Capturar o IP da máquina (primeiro IP)
-IP_ADDRESS=$(hostname -I | awk '{print $1}')
+# Capturar o IP da máquina da interface 'eth0'
+IP_ADDRESS=$(ip -o -4 addr show eth0 | awk '{print $4}' | cut -d/ -f1)
+
+# Verificar se o comando 'ip' falhou e tentar usar 'ifconfig' como fallback
+if [ -z "$IP_ADDRESS" ]; then
+    IP_ADDRESS=$(ifconfig eth0 | grep 'inet ' | awk '{print $2}')
+fi
 
 # Definir o caminho do arquivo hosts
 HOSTS_FILE="/etc/hosts"
